@@ -14,7 +14,7 @@ public interface BookService {
 
     List<Book> list();
 
-    List<Book> searchBook(String bookName,int size, int page);
+    List<Book> searchBook(String bookName,int size, int page) throws Exception;
 
     void update(long id, Book book);
 

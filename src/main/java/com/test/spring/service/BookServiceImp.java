@@ -47,9 +47,13 @@ public class BookServiceImp implements BookService {
 
     @Override
     @Transactional
-    public List<Book> searchBook(String bookName, int size, int page) {
-        List<Book> allBooks = bookDao.getBook(bookName, size, page);
-        return allBooks;
+    public List<Book> searchBook(String bookName, int size, int page) throws Exception {
+        if (size < 0) {
+            throw new Exception("Size cann't lower than 0");
+        } else {
+            List<Book> allBooks = bookDao.getBook(bookName, size, page);
+            return allBooks;
+        }
     }
 
     @Transactional
