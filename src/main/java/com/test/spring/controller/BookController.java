@@ -63,7 +63,12 @@ public class BookController {
 //            params = {"bookname", "size", "page"},
             method = GET)
     public ResponseEntity<List<Book>> searchBook(@RequestParam("bookname") String bookname,@RequestParam("size") int size,@RequestParam("page") int page) {
-        List<Book> books = bookService.searchBook(bookname, size, page);
+        List<Book> books = null;
+        try {
+            books = bookService.searchBook(bookname, size, page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return ResponseEntity.ok().body(books);
     }
 
