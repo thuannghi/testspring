@@ -2,6 +2,7 @@ package com.test.spring.service;
 
 import com.test.spring.controller.BookDto;
 import com.test.spring.dao.BookDao;
+import com.test.spring.exception.ParameterLowerThanZeroException;
 import com.test.spring.model.Author;
 import com.test.spring.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,8 @@ public class BookServiceImp implements BookService {
     @Override
     @Transactional
     public List<Book> searchBook(String bookName, int size, int page) throws Exception {
-        if (size < 0) {
-            throw new Exception("Size cann't lower than 0");
+        if ((size < 0) || (page < 0)) {
+            throw new ParameterLowerThanZeroException("Size cann't lower than 0");
         } else {
             List<Book> allBooks = bookDao.getBook(bookName, size, page);
             return allBooks;
