@@ -1,7 +1,11 @@
 package com.test.spring.config;
 
+import javafx.application.Application;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+@SpringBootApplication
 public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
@@ -18,4 +22,6 @@ public class MyWebAppInitializer extends AbstractAnnotationConfigDispatcherServl
     protected String[] getServletMappings() {
         return new String[] { "/" };
     }
+
+
 }

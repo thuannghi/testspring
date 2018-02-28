@@ -49,12 +49,11 @@ public class BookServiceImp implements BookService {
     @Override
     @Transactional
     public List<Book> searchBook(String bookName, int size, int page) throws Exception {
-        if ((size < 0) || (page < 0)) {
+        if ((size <= 0) || (page <= 0)) {
             throw new ParameterLowerThanZeroException("Size cann't lower than 0");
-        } else {
-            List<Book> allBooks = bookDao.getBook(bookName, size, page);
-            return allBooks;
         }
+        return bookDao.getBook(bookName, size, page);
+
     }
 
     @Transactional
@@ -69,7 +68,12 @@ public class BookServiceImp implements BookService {
 
     @Override
     public Author getBookByAuthor(String searchAuthor) {
-        Author author = bookDao.getAuthorByName(searchAuthor);
-        return author;
+        return bookDao.getAuthorByName(searchAuthor);
+    }
+
+
+    public void test(){
+        Lamda lm =(String x) -> System.out.println("Drawing " +x );
+        lm.messageT("sdfs");
     }
 }

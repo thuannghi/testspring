@@ -48,6 +48,7 @@ public class BookDaoIml implements BookDao {
         originalBook.setAuthor(book.getAuthor());
         em.close();
     }
+
     @Override
     public Author getAuthorByName(String authorName) {
         EntityManager em = entityManagerFactory.createEntityManager();
@@ -68,8 +69,7 @@ public class BookDaoIml implements BookDao {
         Query query = em.createQuery("from Book b where b.title like :name");
         query.setParameter("name", "%" + bookname + "%");
         List<Book> books = query.getResultList();
-        page = page - 1;
-        int setpage = size*page;
+        int setpage = size * (page - 1);
         query.setFirstResult(setpage);
         query.setMaxResults(size);
         books = query.getResultList();

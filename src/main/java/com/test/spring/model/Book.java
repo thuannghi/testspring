@@ -19,7 +19,7 @@ public class Book {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="author_id")
-    @JsonIgnore
+    @JsonManagedReference
     private Author author;
 
     public Long getId() {

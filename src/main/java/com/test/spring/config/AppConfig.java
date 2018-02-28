@@ -1,7 +1,12 @@
 package com.test.spring.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.*;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScans;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
@@ -17,14 +22,21 @@ import java.util.Properties;
 
 import static org.hibernate.cfg.AvailableSettings.*;
 
-@Configuration
+//@Configuration
+@SpringBootApplication()
+//exclude = {DataSourceAutoConfiguration.class, DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
 @ComponentScans(value = {@ComponentScan("com.test.spring.dao"), @ComponentScan("com.test.spring.service")})
 public class AppConfig {
 
+
     @Autowired
     private Environment env;
+
+    public static void main(String[] args) {
+        SpringApplication.run(AppConfig.class, args);
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -71,5 +83,6 @@ public class AppConfig {
         props.put(C3P0_MAX_STATEMENTS, env.getProperty("hibernate.c3p0.max_statements"));
         return props;
     }
+
 
 }
