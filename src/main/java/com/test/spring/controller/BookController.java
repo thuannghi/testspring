@@ -5,6 +5,7 @@ import com.test.spring.model.Book;
 import com.test.spring.service.AuthorService;
 import com.test.spring.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,7 +42,7 @@ public class BookController {
     @RequestMapping(value = "/book", method = GET)
     public ResponseEntity<List<Book>> list() {
         List<Book> books = bookService.list();
-        return ResponseEntity.ok().body(books);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
     /*---Update a book by id---*/
@@ -62,7 +63,7 @@ public class BookController {
             value = "/searchbook",
 //            params = {"bookname", "size", "page"},
             method = GET)
-    public ResponseEntity<List<Book>> searchBook(@RequestParam("bookname") String bookname,@RequestParam("size") int size,@RequestParam("page") int page) {
+    public ResponseEntity<List<Book>> searchBook(@RequestParam("bookname") String bookname, @RequestParam("size") int size, @RequestParam("page") int page) {
         List<Book> books = null;
         try {
             books = bookService.searchBook(bookname, size, page);
@@ -76,9 +77,10 @@ public class BookController {
             value = "/searchauthor",
 //            params = {"bookname", "size", "page"},
             method = GET)
-    public ResponseEntity<List<Book>> getBookByAuthor(@RequestParam("author") String authorName){
+    public ResponseEntity<List<Book>> getBookByAuthor(@RequestParam("author") String authorName) {
         Author author = bookService.getBookByAuthor(authorName);
         List<Book> books = author.getBooks();
         return ResponseEntity.ok().body(books);
-}
+    }
+
 }
